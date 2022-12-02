@@ -10,7 +10,8 @@ require(mailR)
 
 ##################    USER INPUTS     ##############################
 
-Qtr<-2 #(quarter of the desired report)
+Year<- 2022
+Qtr<-3 #(quarter of the desired report)
 
 #####################################################
 
@@ -26,7 +27,7 @@ system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
 rs_driver_object<-rsDriver(
   browser="chrome",
   chromever = '107.0.5304.62',
-  port= free_port()
+  port= 4444L
 )
 
 remDr<-rs_driver_object$client
@@ -41,20 +42,21 @@ remDr$navigate("https://ncua.gov/analysis/credit-union-corporate-call-report-dat
 repeat {
   
   remDr$refresh()
-  Sys.sleep(100)
+  Sys.sleep(10)
   login_xpath<-paste("/html/body/div/div[1]/main/div/div/div[3]/article/div/div[1]/table/tbody/tr[1]/td[",Qtr+1,"]/a",sep="")
-  login_link <- remDr$findElement(using = "xpath", value = login_xpath)
-  t<-try(login_link)
-
+  t<-try(login_link <- remDr$findElement(using = "xpath", value = login_xpath))
+  
   if ("try-error" %notin% class(t)){
     break
   }
 }
 
 
-login_link$clickElement()
 
+#login_link$clickElement()
 
+remDr$close()
+system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
 
 
 #sending mail
@@ -67,16 +69,3 @@ send.mail(from = "sehgal.rohan007@gmail.com",
           authenticate = TRUE,
           send = TRUE)
   
-
-
-
-
-
-
-
-
-
-
-
-
-
