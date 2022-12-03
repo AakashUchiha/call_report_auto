@@ -61,11 +61,11 @@ system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
 
 #sending mail
 
-send.mail(from = "sehgal.rohan007@gmail.com",
-          to = "sehgal.rohan007@gmail.com",
+send.mail(from = "username@gmail.com",
+          to = "username@gmail.com",
           subject = "Quarterly call report file available",
           body = "Body of the email",
-          smtp = list(host.name = "smtp.gmail.com", port = 465, user.name = "sehgal.rohan007@gmail.com", passwd = "mmlclujyhdfvqqbr", ssl = TRUE),
+          smtp = list(host.name = "smtp.gmail.com", port = 465, user.name = "username@gmail.com", passwd = "mmlclujyhdfvqqbr", ssl = TRUE),
           authenticate = TRUE,
           send = TRUE)
   
